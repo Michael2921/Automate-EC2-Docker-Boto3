@@ -119,7 +119,7 @@ def install_docker():
     ]
 
     for cmd in commands_install_docker:
-        stdin, stdout, stderr = ssh_access().exec_command(cmd)
+        stdin, stdout, stderr = ssh.exec_command(cmd)
         stdout.channel.recv_exit_status()
 
         print(f"Command: {cmd}")
@@ -156,7 +156,7 @@ def install_and_run_nginx():
 
 def check_instance_status():
 
-    ec2_status = ec2.describe_instance_status()
+    ec2_status = ec2.describe_instance_status(InstanceIds=instance_id)
     status = ec2_status['InstanceStatuses'][0]['InstanceState']['Name']
     return status
 
